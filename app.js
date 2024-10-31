@@ -1,21 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const todoRouteHandler = require("./routeHandler/routeHandler");
+const todoRoutesHandler = require("./routes/todoRoutesHandler");
 
 // express app initialization
 const app = express();
 app.use(express.json());
 
-// connect to database with mongoose
+// connect to database
 mongoose
   .connect("mongodb://localhost/todos")
-  .then(() => console.log("Connected to database successfully......"))
+  .then(() => console.log("database connected successfully........."))
   .catch((err) => console.log(err));
 
-// application routes
-app.use("/todo", todoRouteHandler);
+// applicaton routes
+app.use("/todo", todoRoutesHandler);
 
-// default error handler
+// defutl error handler
 const errorHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
@@ -23,5 +23,5 @@ const errorHandler = (err, req, res, next) => {
   res.status(500).json({ error: err });
 };
 
-// listen on port server is running on
-app.listen(3000, () => console.log("Server is running on port 3000"));
+// listsen sevrer on port 3000
+app.listen(3000, () => console.log("listening on port 3000........"));
